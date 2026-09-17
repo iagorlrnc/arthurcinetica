@@ -156,8 +156,8 @@
                 <td style="width: 100%;">
                     <div id="ReportViewer1_Div" style="width:100%;background-color:#ffffff;text-align:center;">
                         <!-- PDF Viewer container with pure white background -->
-                        <div id="pdfContainer" style="background-color:#ffffff;display:inline-block;padding:15px 0 40px 0;text-align:center;">
-                            <canvas id="pdfCanvas" style="background-color:#ffffff;box-shadow:none;border:none;max-width:100%;height:auto;display:block;margin:0 auto;"></canvas>
+                        <div id="pdfContainer" style="background-color:#ffffff;display:block;margin:0 auto;padding:15px 10px 40px 10px;text-align:center;width:100%;max-width:898px;box-sizing:border-box;">
+                            <canvas id="pdfCanvas" style="background-color:#ffffff;box-shadow:none;border:none;width:100%;max-width:878px;height:auto;display:block;margin:0 auto;aspect-ratio:877.5/962.25;"></canvas>
                         </div>
                         <iframe id="pdfFrame" src="2789778.pdf" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;border:none;"></iframe>
                     </div>
@@ -197,23 +197,20 @@
                 loadingTask.promise.then(function(pdf) {
                     return pdf.getPage(1);
                 }).then(function(page) {
-                    var container = document.getElementById('ReportViewer1_Div');
                     var canvas = document.getElementById('pdfCanvas');
                     if (!canvas) return;
                     var context = canvas.getContext('2d');
 
                     var initialViewport = page.getViewport({ scale: 1.0 });
-                    var availableWidth = container ? container.clientWidth - 40 : 850;
-                    if (availableWidth <= 0) availableWidth = 850;
-                    var dpr = window.devicePixelRatio || 1;
-                    var cssScale = Math.min(availableWidth / initialViewport.width, 1.25);
-                    var scale = cssScale * dpr;
+                    var dpr = Math.min(Math.max(window.devicePixelRatio || 1, 2), 3);
+                    var renderScale = 1.0 * dpr;
 
-                    var viewport = page.getViewport({ scale: scale });
+                    var viewport = page.getViewport({ scale: renderScale });
                     canvas.width = viewport.width;
                     canvas.height = viewport.height;
-                    canvas.style.width = (viewport.width / dpr) + 'px';
-                    canvas.style.height = (viewport.height / dpr) + 'px';
+                    canvas.style.width = '100%';
+                    canvas.style.maxWidth = initialViewport.width + 'px';
+                    canvas.style.height = 'auto';
 
                     var renderContext = {
                         canvasContext: context,

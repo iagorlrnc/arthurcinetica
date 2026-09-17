@@ -36,7 +36,13 @@ table {
 form > table,
 body > table {
     width: 100%;
+    max-width: 100%;
     table-layout: fixed;
+}
+
+form > table td,
+body > table td {
+    max-width: 100vw;
 }
 
 form > table > tr:first-child > td,
@@ -303,6 +309,37 @@ body > table > tr:last-child > td {
 /* =========================================
    Report Viewer Content Area
    ========================================= */
+
+#ReportViewer1_Div {
+    width: 100% !important;
+    max-width: 100% !important;
+    background-color: #ffffff;
+    text-align: center;
+    overflow-x: auto;
+}
+
+#pdfContainer {
+    background-color: #ffffff;
+    display: block;
+    margin: 0 auto;
+    padding: 15px 10px 40px 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 898px;
+    box-sizing: border-box;
+}
+
+#pdfCanvas {
+    background-color: #ffffff;
+    box-shadow: none !important;
+    border: none !important;
+    width: 100% !important;
+    max-width: 878px !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto;
+    aspect-ratio: 877.5 / 962.25;
+}
 
 #ReportViewer1_Div,
 #pdfContainer,

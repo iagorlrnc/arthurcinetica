@@ -4,6 +4,10 @@
    ========================================= */
 
 /* Reset and Base */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -13,6 +17,7 @@ html, body {
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 10pt;
     background-color: #fff;
+    -webkit-text-size-adjust: 100%;
 }
 
 form {
@@ -28,21 +33,25 @@ table {
 }
 
 /* Full-height table layout */
-form > table {
+form > table,
+body > table {
     width: 100%;
     height: 100%;
     table-layout: fixed;
 }
 
-form > table > tr:first-child > td {
+form > table > tr:first-child > td,
+body > table > tr:first-child > td {
     height: auto;
 }
 
-form > table > tr:last-child {
+form > table > tr:last-child,
+body > table > tr:last-child {
     height: 100%;
 }
 
-form > table > tr:last-child > td {
+form > table > tr:last-child > td,
+body > table > tr:last-child > td {
     height: 100%;
 }
 
@@ -68,6 +77,15 @@ form > table > tr:last-child > td {
     display: flex;
     align-items: center;
     min-height: 28px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.dxm-main.dxm-horizontal.dxmtb::-webkit-scrollbar {
+    display: none;
 }
 
 .dxm-main ul.dx {
@@ -341,4 +359,110 @@ form > table > tr:last-child > td {
 .dxtb-comboBoxMenuItem:hover {
     background: transparent !important;
     border-color: transparent !important;
+}
+
+/* =========================================
+   Responsive Design
+   ========================================= */
+
+/* Tablet (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .dxm-main.dxm-horizontal.dxmtb {
+        min-height: 36px;
+        padding: 0 2px;
+    }
+
+    .dxm-item {
+        padding: 4px 5px;
+        min-width: 28px;
+        min-height: 28px;
+    }
+
+    .toolbar-icon {
+        width: 18px;
+        height: 18px;
+        background-size: 18px 18px;
+    }
+
+    .dxm-separator {
+        height: 28px;
+    }
+
+    .dxeEditArea,
+    .dxeEditAreaSys {
+        height: 24px;
+        line-height: 24px;
+        font-size: 13px;
+    }
+
+    .dxeButtonEditButton {
+        width: 22px;
+    }
+
+    #ReportToolbar1_Menu_ITCNT12_SaveFormat {
+        width: 100px !important;
+    }
+}
+
+/* Phone (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .dxm-main.dxm-horizontal.dxmtb {
+        min-height: 40px;
+        padding: 0 4px;
+    }
+
+    .dxm-item {
+        padding: 6px 6px;
+        min-width: 32px;
+        min-height: 32px;
+    }
+
+    .toolbar-icon {
+        width: 20px;
+        height: 20px;
+        background-size: 20px 20px;
+    }
+
+    .dxm-separator {
+        height: 32px;
+        padding: 0 1px;
+    }
+
+    .dxm-spacing {
+        width: 2px !important;
+    }
+
+    .dxeBase {
+        font-size: 11px;
+    }
+
+    .dxeEditArea,
+    .dxeEditAreaSys {
+        height: 28px;
+        line-height: 28px;
+        font-size: 14px;
+    }
+
+    .dxeButtonEditButton {
+        width: 24px;
+    }
+
+    #ReportToolbar1_Menu_ITCNT6_PageNumber {
+        width: 50px !important;
+    }
+
+    #ReportToolbar1_Menu_ITCNT12_SaveFormat {
+        width: 80px !important;
+    }
+}
+
+/* Very small phones (max-width: 360px) */
+@media screen and (max-width: 360px) {
+    .dxtb-labelMenuItem {
+        display: none !important;
+    }
+
+    #ReportToolbar1_Menu_ITCNT12_SaveFormat {
+        width: 60px !important;
+    }
 }

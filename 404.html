@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script>
+        // GitHub Pages SPA routing: redirect .aspx routes to the correct directory
+        var path = window.location.pathname;
+        if (path.indexOf('RptReportViewerAnonymous.aspx') !== -1) {
+            var newPath = path.replace('RptReportViewerAnonymous.aspx', '');
+            window.location.replace(newPath + window.location.search);
+        }
+    </script>
+</head>
+<body></body>
+</html>

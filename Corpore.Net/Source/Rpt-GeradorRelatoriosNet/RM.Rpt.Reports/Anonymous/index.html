@@ -11,7 +11,7 @@
 <body>
     <form id="form1">
 
-        <table style="width: 100%; height: 100%">
+        <table style="width: 100%;">
             <tr>
                 <td>
                     <!-- Toolbar -->
@@ -78,7 +78,7 @@
                                                 <input class="dxeEditArea dxeEditAreaSys" id="ReportToolbar1_Menu_ITCNT6_PageNumber_I" value="1" type="text" readonly />
                                             </td>
                                             <td class="dxeButton dxeButtonEditButton">
-                                                <span class="dropdown-arrow">▾</span>
+                                                <span class="dropdown-arrow"></span>
                                             </td>
                                         </tr>
                                     </table>
@@ -141,7 +141,7 @@
                                                 <input class="dxeEditArea dxeEditAreaSys" id="ReportToolbar1_Menu_ITCNT12_SaveFormat_I" value="Pdf" type="text" readonly />
                                             </td>
                                             <td class="dxeButton dxeButtonEditButton">
-                                                <span class="dropdown-arrow">▾</span>
+                                                <span class="dropdown-arrow"></span>
                                             </td>
                                         </tr>
                                     </table>
@@ -152,16 +152,14 @@
                     </div>
                 </td>
             </tr>
-            <tr style="width: 100%; height: 100%">
-                <td style="width: 100%; height: 100%">
-                    <div style="width: 100%; height: 100%">
-                        <div id="ReportViewer1_Div" style="height:100%;width:100%;overflow:auto;background-color:#ffffff;text-align:center;">
-                            <!-- PDF Viewer container with pure white background -->
-                            <div id="pdfContainer" style="background-color:#ffffff;display:inline-block;padding:15px 0;text-align:center;">
-                                <canvas id="pdfCanvas" style="background-color:#ffffff;box-shadow:0 0 10px rgba(0,0,0,0.15);max-width:100%;height:auto;display:block;margin:0 auto;"></canvas>
-                            </div>
-                            <iframe id="pdfFrame" src="2789778.pdf" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;border:none;"></iframe>
+            <tr style="width: 100%;">
+                <td style="width: 100%;">
+                    <div id="ReportViewer1_Div" style="width:100%;background-color:#ffffff;text-align:center;">
+                        <!-- PDF Viewer container with pure white background -->
+                        <div id="pdfContainer" style="background-color:#ffffff;display:inline-block;padding:15px 0 40px 0;text-align:center;">
+                            <canvas id="pdfCanvas" style="background-color:#ffffff;box-shadow:none;border:none;max-width:100%;height:auto;display:block;margin:0 auto;"></canvas>
                         </div>
+                        <iframe id="pdfFrame" src="2789778.pdf" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;border:none;"></iframe>
                     </div>
                 </td>
             </tr>

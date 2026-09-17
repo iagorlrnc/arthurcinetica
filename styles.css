@@ -12,8 +12,9 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 10pt;
     background-color: #fff;
@@ -24,7 +25,6 @@ form {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
 }
 
 table {
@@ -32,27 +32,30 @@ table {
     border-spacing: 0;
 }
 
-/* Full-height table layout */
+/* Table layout with sticky toolbar */
 form > table,
 body > table {
     width: 100%;
-    height: 100%;
     table-layout: fixed;
 }
 
 form > table > tr:first-child > td,
 body > table > tr:first-child > td {
     height: auto;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
 }
 
 form > table > tr:last-child,
 body > table > tr:last-child {
-    height: 100%;
+    height: auto;
 }
 
 form > table > tr:last-child > td,
 body > table > tr:last-child > td {
-    height: 100%;
+    height: auto;
 }
 
 /* =========================================
@@ -288,10 +291,13 @@ body > table > tr:last-child > td {
 }
 
 .dropdown-arrow {
-    font-size: 10px;
-    color: #555;
     display: inline-block;
-    line-height: 1;
+    width: 0;
+    height: 0;
+    border-left: 3.5px solid transparent;
+    border-right: 3.5px solid transparent;
+    border-top: 4px solid #555555;
+    vertical-align: middle;
 }
 
 /* =========================================
@@ -302,6 +308,8 @@ body > table > tr:last-child > td {
 #pdfContainer,
 #pdfCanvas {
     background-color: #ffffff;
+    box-shadow: none !important;
+    border: none !important;
 }
 
 #ReportViewer1_Div iframe,

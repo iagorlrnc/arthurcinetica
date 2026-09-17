@@ -307,25 +307,6 @@ body > table > tr:last-child > td {
     background-color: #ffffff;
 }
 
-/* =========================================
-   Loading Panel (hidden by default)
-   ========================================= */
-
-.dxLoadingPanel,
-.dxlpLoadingPanel {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 30000;
-    background-color: #fff;
-    border: 1px solid #7b7b7b;
-    padding: 5px;
-    font-family: Tahoma, sans-serif;
-    font-size: 10pt;
-    color: #000;
-}
 
 /* =========================================
    No Image Menu Items

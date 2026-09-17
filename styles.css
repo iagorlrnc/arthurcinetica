@@ -1,0 +1,344 @@
+/* =========================================
+   DevExpress Report Viewer - Lite Theme Replica
+   Matches the Afya Corpore.Net report viewer
+   ========================================= */
+
+/* Reset and Base */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 10pt;
+    background-color: #fff;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Full-height table layout */
+form > table {
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+}
+
+form > table > tr:first-child > td {
+    height: auto;
+}
+
+form > table > tr:last-child {
+    height: 100%;
+}
+
+form > table > tr:last-child > td {
+    height: 100%;
+}
+
+/* =========================================
+   DevExpress Menu / Toolbar - Lite Theme
+   ========================================= */
+
+.dxmLite {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    line-height: normal;
+}
+
+.dxm-ltr {
+    direction: ltr;
+}
+
+.dxm-main.dxm-horizontal.dxmtb {
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    min-height: 28px;
+}
+
+.dxm-main ul.dx {
+    list-style: none;
+    margin: 0;
+    padding: 2px 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.dxm-main ul.dx > li {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+/* Toolbar items */
+.dxm-item {
+    cursor: pointer;
+    padding: 2px 3px;
+    border: 1px solid transparent;
+    border-radius: 0;
+    margin: 0 1px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    min-height: 22px;
+}
+
+.dxm-item:hover {
+    background-color: #f0f0f0;
+    border-color: #e0e0e0;
+}
+
+.dxm-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Separator */
+.dxm-separator {
+    display: inline-flex !important;
+    align-items: center;
+    padding: 0 2px;
+    margin: 0;
+    height: 22px;
+}
+
+.dxm-separator b {
+    display: block;
+    width: 1px;
+    height: 18px;
+    background-color: #cfcfcf;
+}
+
+/* Spacing */
+.dxm-spacing {
+    display: inline-block !important;
+    width: 3px;
+}
+
+/* Labels */
+.dxeBase {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    color: #333;
+    vertical-align: middle;
+}
+
+/* Clear */
+.dx-clear {
+    display: block;
+    clear: both;
+    font-size: 0;
+    line-height: 0;
+    height: 0;
+}
+
+/* =========================================
+   Toolbar Icon Sprites (SVG-based replicas)
+   ========================================= */
+
+.toolbar-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    opacity: 0.65;
+}
+
+.dxm-item:hover .toolbar-icon {
+    opacity: 0.85;
+}
+
+/* Search icon */
+.icon-search {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='6.5' cy='6.5' r='5' fill='none' stroke='%23555' stroke-width='1.5'/%3E%3Cline x1='10' y1='10' x2='14.5' y2='14.5' stroke='%23555' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Print icon */
+.icon-print {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='1' width='10' height='5' fill='none' stroke='%23555' stroke-width='1.2'/%3E%3Crect x='1' y='5' width='14' height='7' rx='1' fill='none' stroke='%23555' stroke-width='1.2'/%3E%3Crect x='4' y='9' width='8' height='6' fill='none' stroke='%23555' stroke-width='1.2'/%3E%3Cline x1='5.5' y1='11' x2='10.5' y2='11' stroke='%23555' stroke-width='0.8'/%3E%3Cline x1='5.5' y1='13' x2='10.5' y2='13' stroke='%23555' stroke-width='0.8'/%3E%3C/svg%3E");
+}
+
+/* Print Page icon */
+.icon-print-page {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='1' width='10' height='5' fill='none' stroke='%23555' stroke-width='1.2'/%3E%3Crect x='1' y='5' width='14' height='7' rx='1' fill='none' stroke='%23555' stroke-width='1.2'/%3E%3Crect x='4' y='9' width='8' height='6' fill='none' stroke='%23555' stroke-width='1.2'/%3E%3Cline x1='5.5' y1='11' x2='10.5' y2='11' stroke='%23555' stroke-width='0.8'/%3E%3Ccircle cx='12' cy='8' r='1' fill='%23555'/%3E%3C/svg%3E");
+}
+
+/* First Page icon */
+.icon-first-page {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cline x1='3' y1='4' x2='3' y2='12' stroke='%23555' stroke-width='1.5'/%3E%3Cpolygon points='6,8 13,4 13,12' fill='%23555'/%3E%3C/svg%3E");
+}
+
+/* Previous Page icon */
+.icon-prev-page {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpolygon points='4,8 12,3 12,13' fill='%23555'/%3E%3C/svg%3E");
+}
+
+/* Next Page icon */
+.icon-next-page {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpolygon points='12,8 4,3 4,13' fill='%23555'/%3E%3C/svg%3E");
+}
+
+/* Last Page icon */
+.icon-last-page {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpolygon points='3,4 10,8 3,12' fill='%23555'/%3E%3Cline x1='13' y1='4' x2='13' y2='12' stroke='%23555' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+/* Save/Export icon */
+.icon-save {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='2' y='2' width='12' height='12' rx='1' fill='none' stroke='%23555' stroke-width='1.2'/%3E%3Crect x='4' y='2' width='8' height='5' fill='none' stroke='%23555' stroke-width='1'/%3E%3Crect x='8' y='3' width='3' height='3' fill='%23555'/%3E%3Crect x='4' y='9' width='8' height='4' rx='0.5' fill='none' stroke='%23555' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+/* =========================================
+   DevExpress Editor Controls
+   ========================================= */
+
+.dxeButtonEditSys,
+.dxeTextBoxSys {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.dxeButtonEdit {
+    border: 1px solid #c3c3c3;
+    background-color: #fff;
+    border-radius: 0;
+}
+
+.dxeTextBox {
+    border: 1px solid #d0d0d0;
+    background-color: #ffffff;
+    border-radius: 0;
+}
+
+.dxeReadOnly {
+    background-color: #ffffff;
+}
+
+.dxic {
+    padding: 0;
+}
+
+.dxeEditArea,
+.dxeEditAreaSys {
+    border: none;
+    outline: none;
+    padding: 1px 3px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    color: #333;
+    background: transparent;
+    width: 100%;
+    box-sizing: border-box;
+    height: 20px;
+    line-height: 20px;
+}
+
+.dxeButton,
+.dxeButtonEditButton {
+    background-color: #ffffff;
+    border-left: 1px solid #d0d0d0;
+    cursor: pointer;
+    width: 17px;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    padding: 0 2px;
+}
+
+.dxeButton:hover {
+    background-color: #f5f5f5;
+}
+
+.dropdown-arrow {
+    font-size: 10px;
+    color: #555;
+    display: inline-block;
+    line-height: 1;
+}
+
+/* =========================================
+   Report Viewer Content Area
+   ========================================= */
+
+#ReportViewer1_Div {
+    background-color: #ffffff;
+}
+
+#ReportViewer1_Div iframe,
+#pdfFrame {
+    background-color: #ffffff;
+}
+
+/* =========================================
+   Loading Panel (hidden by default)
+   ========================================= */
+
+.dxLoadingPanel,
+.dxlpLoadingPanel {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 30000;
+    background-color: #fff;
+    border: 1px solid #7b7b7b;
+    padding: 5px;
+    font-family: Tahoma, sans-serif;
+    font-size: 10pt;
+    color: #000;
+}
+
+/* =========================================
+   No Image Menu Items
+   ========================================= */
+
+.dxm-noImage {
+    padding: 0 1px;
+}
+
+.dxm-tmpl {
+    cursor: default;
+}
+
+.dxtb-labelMenuItem {
+    cursor: default !important;
+    border-color: transparent !important;
+    background: transparent !important;
+}
+
+.dxtb-labelMenuItem:hover {
+    background: transparent !important;
+    border-color: transparent !important;
+}
+
+.dxtb-comboBoxMenuItem {
+    cursor: default !important;
+    border-color: transparent !important;
+    background: transparent !important;
+}
+
+.dxtb-comboBoxMenuItem:hover {
+    background: transparent !important;
+    border-color: transparent !important;
+}

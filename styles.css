@@ -298,7 +298,9 @@ body > table > tr:last-child > td {
    Report Viewer Content Area
    ========================================= */
 
-#ReportViewer1_Div {
+#ReportViewer1_Div,
+#pdfContainer,
+#pdfCanvas {
     background-color: #ffffff;
 }
 

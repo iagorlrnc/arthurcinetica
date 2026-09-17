@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <link rel="stylesheet" href="../../../../../styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="pdfData.js"></script>
 </head>
 <body>
     <form id="form1">
@@ -76,7 +78,7 @@
                                                 <input class="dxeEditArea dxeEditAreaSys" id="ReportToolbar1_Menu_ITCNT6_PageNumber_I" value="1" type="text" readonly />
                                             </td>
                                             <td class="dxeButton dxeButtonEditButton">
-                                                <span class="dropdown-arrow">âÿ¾</span>
+                                                <span class="dropdown-arrow">â–¾</span>
                                             </td>
                                         </tr>
                                     </table>
@@ -114,9 +116,9 @@
                                 <li class="dxm-spacing"></li>
 
                                 <!-- Last Page -->
-                                <li title="Ãÿltima PÃ¡gina" class="dxm-item">
+                                <li title="Ãšltima PÃ¡gina" class="dxm-item">
                                     <div class="dxm-content">
-                                        <span class="toolbar-icon icon-last-page" title="Ãÿltima PÃ¡gina"></span>
+                                        <span class="toolbar-icon icon-last-page" title="Ãšltima PÃ¡gina"></span>
                                     </div>
                                 </li>
 
@@ -139,7 +141,7 @@
                                                 <input class="dxeEditArea dxeEditAreaSys" id="ReportToolbar1_Menu_ITCNT12_SaveFormat_I" value="Pdf" type="text" readonly />
                                             </td>
                                             <td class="dxeButton dxeButtonEditButton">
-                                                <span class="dropdown-arrow">âÿ¾</span>
+                                                <span class="dropdown-arrow">â–¾</span>
                                             </td>
                                         </tr>
                                     </table>
@@ -153,9 +155,12 @@
             <tr style="width: 100%; height: 100%">
                 <td style="width: 100%; height: 100%">
                     <div style="width: 100%; height: 100%">
-                        <div id="ReportViewer1_Div" style="height:100%;width:100%;overflow:hidden;">
-                            <!-- PDF Viewer embedded here -->
-                            <iframe id="pdfFrame" src="2789778.pdf#toolbar=0&navpanes=0&view=FitH" style="width:100%;height:100%;border:none;background:#ffffff;"></iframe>
+                        <div id="ReportViewer1_Div" style="height:100%;width:100%;overflow:auto;background-color:#ffffff;text-align:center;">
+                            <!-- PDF Viewer container with pure white background -->
+                            <div id="pdfContainer" style="background-color:#ffffff;display:inline-block;padding:15px 0;text-align:center;">
+                                <canvas id="pdfCanvas" style="background-color:#ffffff;box-shadow:0 0 10px rgba(0,0,0,0.15);max-width:100%;height:auto;display:block;margin:0 auto;"></canvas>
+                            </div>
+                            <iframe id="pdfFrame" src="2789778.pdf" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;border:none;"></iframe>
                         </div>
                     </div>
                 </td>
@@ -168,9 +173,81 @@
     <script>
         var PDF_FILE = '2789778.pdf';
 
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+        }
+
+        function loadAndRenderPdf() {
+            var loadingTask = null;
+            if (typeof PDF_BASE64 !== 'undefined' && PDF_BASE64) {
+                try {
+                    var raw = atob(PDF_BASE64);
+                    var uint8 = new Uint8Array(raw.length);
+                    for (var i = 0; i < raw.length; i++) {
+                        uint8[i] = raw.charCodeAt(i);
+                    }
+                    loadingTask = pdfjsLib.getDocument({ data: uint8 });
+                } catch (e) {
+                    console.warn('Base64 decode failed, fallback to URL:', e);
+                }
+            }
+            if (!loadingTask && typeof pdfjsLib !== 'undefined') {
+                loadingTask = pdfjsLib.getDocument(PDF_FILE);
+            }
+
+            if (loadingTask) {
+                loadingTask.promise.then(function(pdf) {
+                    return pdf.getPage(1);
+                }).then(function(page) {
+                    var container = document.getElementById('ReportViewer1_Div');
+                    var canvas = document.getElementById('pdfCanvas');
+                    if (!canvas) return;
+                    var context = canvas.getContext('2d');
+
+                    var initialViewport = page.getViewport({ scale: 1.0 });
+                    var availableWidth = container ? container.clientWidth - 40 : 850;
+                    if (availableWidth <= 0) availableWidth = 850;
+                    var dpr = window.devicePixelRatio || 1;
+                    var cssScale = Math.min(availableWidth / initialViewport.width, 1.25);
+                    var scale = cssScale * dpr;
+
+                    var viewport = page.getViewport({ scale: scale });
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    canvas.style.width = (viewport.width / dpr) + 'px';
+                    canvas.style.height = (viewport.height / dpr) + 'px';
+
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+                }).catch(function(err) {
+                    console.warn('PDF.js rendering error, fallback to iframe:', err);
+                    fallbackToIframe();
+                });
+            } else {
+                fallbackToIframe();
+            }
+        }
+
+        function fallbackToIframe() {
+            var frame = document.getElementById('pdfFrame');
+            var container = document.getElementById('pdfContainer');
+            if (frame && container) {
+                container.style.display = 'none';
+                frame.style.position = 'static';
+                frame.style.left = 'auto';
+                frame.style.top = 'auto';
+                frame.style.width = '100%';
+                frame.style.height = '100%';
+            }
+        }
 
         // Attach events after DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
+            loadAndRenderPdf();
+
             // Map button titles to actions
             var buttonMap = {
                 'Exibe a janela de pesquisa': 'search',
@@ -179,7 +256,7 @@
                 'Primeira PÃ¡gina': 'firstPage',
                 'PÃ¡gina Anterior': 'prevPage',
                 'PrÃ³xima PÃ¡gina': 'nextPage',
-                'Ãÿltima PÃ¡gina': 'lastPage',
+                'Ãšltima PÃ¡gina': 'lastPage',
                 'Exporta o relatÃ³rio e exibe em uma nova janela': 'save'
             };
 
@@ -215,43 +292,15 @@
                         iframe.contentWindow.focus();
                         iframe.contentWindow.print();
                     } catch (e) {
-                        var printWin = window.open(PDF_FILE, '_blank');
-                        if (printWin) {
-                            printWin.addEventListener('load', function() {
-                                printWin.print();
-                            });
-                        }
+                        window.print();
                     }
                     break;
 
                 case 'firstPage':
-                    iframe.src = PDF_FILE + '#toolbar=0&navpanes=0&page=1&view=FitH';
-                    updatePageNumber(1);
-                    break;
-
                 case 'prevPage':
-                    var current = getCurrentPage();
-                    if (current > 1) {
-                        var prev = current - 1;
-                        iframe.src = PDF_FILE + '#toolbar=0&navpanes=0&page=' + prev + '&view=FitH';
-                        updatePageNumber(prev);
-                    }
-                    break;
-
                 case 'nextPage':
-                    var current2 = getCurrentPage();
-                    var total2 = getTotalPages();
-                    if (current2 < total2) {
-                        var next = current2 + 1;
-                        iframe.src = PDF_FILE + '#toolbar=0&navpanes=0&page=' + next + '&view=FitH';
-                        updatePageNumber(next);
-                    }
-                    break;
-
                 case 'lastPage':
-                    var total = getTotalPages();
-                    iframe.src = PDF_FILE + '#toolbar=0&navpanes=0&page=' + total + '&view=FitH';
-                    updatePageNumber(total);
+                    updatePageNumber(1);
                     break;
 
                 case 'save':

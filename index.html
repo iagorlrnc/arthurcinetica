@@ -3,26 +3,362 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <script>
-        var target = './Corpore.Net/Source/Rpt-GeradorRelatoriosNet/RM.Rpt.Reports/Anonymous/';
-        var search = window.location.search || '';
-        var hash = window.location.hash || '';
-
-        var defaultFile = '2789778';
-
-        if (search) {
-            if (search.indexOf('GUID=') === -1) {
-                target += search + '&GUID=a0db33c1-6628-428d-9b60-f155fd2fb270&anonymous=true';
-            } else {
-                target += search;
-            }
-        } else {
-            target += '?' + defaultFile + '&GUID=a0db33c1-6628-428d-9b60-f155fd2fb270&anonymous=true';
+    <title>RM Portal - Login Versão 12.1.2510.269</title>
+    <link rel="icon" type="image/png" href="./Corpore.Net/Source/Rpt-GeradorRelatoriosNet/RM.Rpt.Reports/Anonymous/icon.png">
+    <link rel="shortcut icon" type="image/png" href="./Corpore.Net/Source/Rpt-GeradorRelatoriosNet/RM.Rpt.Reports/Anonymous/icon.png">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        if (hash) target += hash;
-        window.location.replace(target);
-    </script>
+
+        html, body {
+            width: 100%;
+            min-height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #fbfbfb;
+            color: #333333;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+        }
+
+        .main-container {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 0;
+        }
+
+        /* TOTVS Brand Header */
+        .totvs-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            user-select: none;
+        }
+
+        .totvs-brand img {
+            width: 160px;
+            margin-top: 16px;
+            height: auto;
+            display: block;
+        }
+
+        /* Titles */
+        .title-linha-rm {
+            font-size: 34px;
+            font-weight: 300;
+            color: #777777;
+            letter-spacing: 0.2px;
+            margin-bottom: 3px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .title-boas-vindas {
+            font-size: 24px;
+            font-weight: 400;
+            color: #0099b8;
+            margin-bottom: 24px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Afya Button */
+        .btn-afya-wrapper {
+            width: 400px;
+            max-width: 90%;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 2px;
+        }
+
+        .btn-afya {
+            background-color: #fbfbfb;
+            color: #000000;
+            border: 1px solid #000000;
+            padding: 12px 4px;
+            margin-left: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            cursor: pointer;
+            border-radius: 0;
+            outline: none;
+            line-height: 1.2;
+            transition: background-color 0.15s;
+        }
+
+        .btn-afya:hover {
+            background-color: #f7f7f7;
+        }
+
+        /* Form Area */
+        .login-box {
+            width: 400px;
+            max-width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            width: 18px;
+            height: 18px;
+            color: #0099b8;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 42px;
+            padding-left: 42px;
+            padding-right: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            color: #333333;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input::placeholder {
+            color: #75838d;
+            font-weight: 400;
+        }
+
+        .form-input:focus {
+            border-color: #0099b8;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 4px rgba(0, 153, 184, 0.4);
+        }
+
+        /* Dropdown Select */
+        select.form-input {
+            cursor: pointer;
+            color: #222222;
+            padding-left: 42px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23333%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 12px;
+        }
+
+        /* Acessar Button */
+        .btn-acessar {
+            width: 100%;
+            height: 44px;
+            background-color: #0099b8;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            margin-top: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            outline: none;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-acessar:hover {
+            background-color: #008ca5;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-acessar:active {
+            background-color: #007a90;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Esqueceu sua senha */
+        .forgot-pass {
+            text-align: center;
+            margin-top: 14px;
+        }
+
+        .forgot-pass a {
+            color: #0099b8;
+            text-decoration: underline;
+            font-size: 13.5px;
+            font-weight: 500;
+        }
+
+        .forgot-pass a:hover {
+            color: #007a90;
+        }
+
+        /* Divider & Footer */
+        .bottom-section {
+            width: 100%;
+            margin-top: 55px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .divider-line {
+            width: 100%;
+            height: 1px;
+            background-color: #e5e5e5;
+            margin-bottom: 22px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: #0099b8;
+            font-size: 13px;
+            text-decoration: underline;
+            font-weight: 400;
+        }
+
+        .footer-links a:hover {
+            color: #007a90;
+        }
+
+        .footer-logo {
+            margin-bottom: 25px;
+        }
+
+        .footer-logo img {
+            width: 110px;
+            height: auto;
+            opacity: 0.55;
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .btn-afya-wrapper,
+            .login-box {
+                width: 90%;
+            }
+            .title-linha-rm {
+                font-size: 28px;
+            }
+            .title-boas-vindas {
+                font-size: 20px;
+            }
+            .footer-links {
+                gap: 12px;
+                padding: 0 10px;
+            }
+        }
+    </style>
 </head>
-<body></body>
+<body>
+
+    <div class="main-container">
+        <!-- Logo TOTVS Superior -->
+        <div class="totvs-brand">
+            <img src="./Corpore.Net/Source/Rpt-GeradorRelatoriosNet/RM.Rpt.Reports/Anonymous/logo.png" alt="TOTVS">
+        </div>
+
+        <!-- Headings -->
+        <h1 class="title-linha-rm">Linha RM</h1>
+        <h2 class="title-boas-vindas">Boas-vindas</h2>
+
+        <!-- Botão Afya -->
+        <div class="btn-afya-wrapper">
+            <button type="button" class="btn-afya" onclick="event.preventDefault()">Acesse com conta Afya</button>
+        </div>
+
+        <!-- Formulário Fictício -->
+        <form class="login-box" onsubmit="event.preventDefault()">
+            <!-- Campo Usuário -->
+            <div class="input-wrapper">
+                <span class="input-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0099b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </span>
+                <input type="text" class="form-input" placeholder="Insira seu UsuÃ¡rio ou E-mail" autocomplete="off" spellcheck="false">
+            </div>
+
+            <!-- Campo Senha -->
+            <div class="input-wrapper">
+                <span class="input-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0099b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </span>
+                <input type="password" class="form-input" placeholder="Insira sua Senha" autocomplete="off">
+            </div>
+
+            <!-- Dropdown Banco de Dados -->
+            <div class="input-wrapper">
+                <span class="input-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0099b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                    </svg>
+                </span>
+                <select class="form-input">
+                    <option value="CorporeRM" selected>CorporeRM</option>
+                </select>
+            </div>
+
+            <!-- Botão Acessar -->
+            <button type="button" class="btn-acessar" onclick="event.preventDefault()">Acessar</button>
+
+            <!-- Link Esqueceu Senha -->
+            <div class="forgot-pass">
+                <a href="javascript:void(0)" onclick="event.preventDefault()">Esqueceu sua senha?</a>
+            </div>
+        </form>
+
+        <!-- Seção Inferior com Linha e Links -->
+        <div class="bottom-section">
+            <div class="divider-line"></div>
+            <div class="footer-links">
+                <a href="javascript:void(0)" onclick="event.preventDefault()">Currículo</a>
+                <a href="javascript:void(0)" onclick="event.preventDefault()">Executor Web</a>
+                <a href="javascript:void(0)" onclick="event.preventDefault()">Forum</a>
+                <a href="javascript:void(0)" onclick="event.preventDefault()">Certificador de Relatórios</a>
+            </div>
+            <div class="footer-logo">
+                <img src="./Corpore.Net/Source/Rpt-GeradorRelatoriosNet/RM.Rpt.Reports/Anonymous/logo_cinza.png" alt="TOTVS">
+            </div>
+        </div>
+    </div>
+
+</body>
 </html>

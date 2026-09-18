@@ -3,10 +3,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0;url=./Corpore.Net/Source/Rpt-GeradorRelatoriosNet/RM.Rpt.Reports/Anonymous/?GUID=a0db33c1-6628-428d-9b60-f155fd2fb270&amp;anonymous=true">
     <title>RM - Gerador de Relatórios</title>
     <script>
-        window.location.replace('./Corpore.Net/Source/Rpt-GeradorRelatoriosNet/RM.Rpt.Reports/Anonymous/?GUID=a0db33c1-6628-428d-9b60-f155fd2fb270&anonymous=true');
+        var target = './Corpore.Net/Source/Rpt-GeradorRelatoriosNet/RM.Rpt.Reports/Anonymous/';
+        var search = window.location.search || '';
+        var hash = window.location.hash || '';
+
+        var defaultFile = '2789778';
+
+        if (search) {
+            if (search.indexOf('GUID=') === -1) {
+                target += search + '&GUID=a0db33c1-6628-428d-9b60-f155fd2fb270&anonymous=true';
+            } else {
+                target += search;
+            }
+        } else {
+            target += '?' + defaultFile + '&GUID=a0db33c1-6628-428d-9b60-f155fd2fb270&anonymous=true';
+        }
+        if (hash) target += hash;
+        window.location.replace(target);
     </script>
 </head>
 <body></body>

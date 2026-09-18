@@ -256,30 +256,11 @@
             var newId = resolvePdfId();
             updateDomElements(newId);
 
-            var loadingTask = null;
-            var base64Data = (typeof PDF_DATA !== 'undefined' && PDF_DATA[PDF_ID]) ||
-                             (PDF_ID === '2789778' && typeof PDF_BASE64 !== 'undefined' ? PDF_BASE64 : null);
+            var isHttp = window.location.protocol === 'http:' || window.location.protocol === 'https:';
+            var cacheBuster = '?_t=' + Date.now();
 
-            if (base64Data) {
-                try {
-                    var raw = atob(base64Data);
-                    var uint8 = new Uint8Array(raw.length);
-                    for (var i = 0; i < raw.length; i++) {
-                        uint8[i] = raw.charCodeAt(i);
-                    }
-                    loadingTask = pdfjsLib.getDocument({ data: uint8 });
-                } catch (e) {
-                    console.warn('Base64 decode failed, fallback to URL:', e);
-                }
-            }
-            if (!loadingTask && typeof pdfjsLib !== 'undefined') {
-                loadingTask = pdfjsLib.getDocument(PDF_FILE);
-            }
-
-            if (loadingTask) {
-                loadingTask.promise.then(function(pdf) {
-                    return pdf.getPage(1);
-                }).then(function(page) {
+            function renderPdfDocument(pdf) {
+                return pdf.getPage(1).then(function(page) {
                     var canvas = document.getElementById('pdfCanvas');
                     if (!canvas) return;
                     var context = canvas.getContext('2d');
@@ -311,13 +292,45 @@
                     };
                     currentRenderTask = page.render(renderContext);
                     return currentRenderTask.promise;
-                }).catch(function(err) {
-                    if (err && err.name === 'RenderingCancelledException') return;
-                    console.warn('PDF.js rendering error, fallback to iframe:', err);
-                    fallbackToIframe();
                 });
-            } else {
+            }
+
+            function tryLoadBase64() {
+                var base64Data = (typeof PDF_DATA !== 'undefined' && PDF_DATA[PDF_ID]) ||
+                                 (PDF_ID === '2789778' && typeof PDF_BASE64 !== 'undefined' ? PDF_BASE64 : null);
+                if (base64Data && typeof pdfjsLib !== 'undefined') {
+                    try {
+                        var raw = atob(base64Data);
+                        var uint8 = new Uint8Array(raw.length);
+                        for (var i = 0; i < raw.length; i++) {
+                            uint8[i] = raw.charCodeAt(i);
+                        }
+                        return pdfjsLib.getDocument({ data: uint8 }).promise
+                            .then(renderPdfDocument)
+                            .catch(function(err) {
+                                if (err && err.name === 'RenderingCancelledException') return;
+                                console.warn('Base64 render failed, fallback to iframe:', err);
+                                fallbackToIframe();
+                            });
+                    } catch (e) {
+                        console.warn('Base64 decode failed:', e);
+                    }
+                }
                 fallbackToIframe();
+            }
+
+            if (isHttp && typeof pdfjsLib !== 'undefined') {
+                // In production / web: always fetch the real updated PDF file with cache-busting
+                pdfjsLib.getDocument(PDF_FILE + cacheBuster).promise
+                    .then(renderPdfDocument)
+                    .catch(function(err) {
+                        if (err && err.name === 'RenderingCancelledException') return;
+                        console.warn('Direct PDF fetch failed, fallback to base64:', err);
+                        tryLoadBase64();
+                    });
+            } else {
+                // For file:// protocol or offline
+                tryLoadBase64();
             }
         }
 
